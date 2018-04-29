@@ -3,7 +3,7 @@ Project Outline
 
 1) Implement Blinder-Oaxaca using statsmodels
 
-2) Data Collection
+2) Data Collection/Cleaning
   
     For each country of interest:
       1) Current measure of pay gap inequality
