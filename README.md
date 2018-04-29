@@ -5,9 +5,9 @@ Project Outline
 
 2) Data Collection
   
-  For each country of interest:
-    1) Current measure of pay gap inequality
-    2) Standardized samples of earnings/background census information
+    For each country of interest:
+      1) Current measure of pay gap inequality
+      2) Standardized samples of earnings/background census information
     
 3) Regress log(wages) on gender and other variables (race, number of dependents, education, etc.) and control for role/industry, industry, neither
 
