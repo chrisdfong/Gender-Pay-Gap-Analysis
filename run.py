@@ -5,16 +5,16 @@ import statsmodels.api as sm
 two_rows = []
 three_rows = []
 
-for cntry in ['../Brazil']:
+for cntry in ['Canada', 'Panama', 'PuertoRico', 'UnitedStates']:
     single_two = [cntry]
     single_three = [cntry]
     
-    df = pd.read_csv(cntry +'.csv').drop(['COUNTRY', 'PERWT'], axis=1)
+    df = pd.read_csv('../'+cntry +'.csv').drop(['COUNTRY', 'PERWT'], axis=1)
     df['constant'] = 1
     df['female'] = (df['SEX'] == 'Female').astype(float)
     df.drop('SEX', axis=1, inplace=True)
     
-    dummies = pd.get_dummies(df[['MARST', 'NATIVITY', 'EDATTAIN', 'EMPSTAT', 'OCCISCO', 'INDGEN']], drop_first=True)
+    dummies = pd.get_dummies(df[['MARST', 'NATIVITY', 'EDATTAIN', 'EMPSTAT', 'OCCISCO', 'INDGEN']], drop_first=True).astype(np.int8)
     df = pd.concat([df[['INCTOT']], dummies, df[['female', 'AGE', 'constant']]], axis=1)
     
     male = df[df['female']==0].reset_index(drop=True).drop('female', axis=1)
@@ -65,7 +65,8 @@ for cntry in ['../Brazil']:
     two_rows.append(single_two)
     three_rows.append(single_three)
     
-print('Two-Fold')
-print(two_rows)
-print('Three-Fold')
-print(three_rows)
+two = pd.DataFrame(two_rows, columns=['Country', 'Group 1', 'Group 2', 'Gap', 'Explained', 'Unexplained'])
+three = pd.DataFrame(three_rows, columns=['Country', 'Group 1', 'Group 2', 'Gap', 'Endowments', 'Coefficients', 'Interaction'])
+
+two.to_csv('two_fold.csv', index=False)
+three.to_csv('three_fold.csv', index=False)
