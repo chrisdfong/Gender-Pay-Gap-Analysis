@@ -5,7 +5,7 @@ import statsmodels.api as sm
 two_rows = []
 three_rows = []
 
-for cntry in ['Canada', 'Panama', 'PuertoRico', 'UnitedStates']:
+for cntry in ['Brazil', 'Canada', 'Panama', 'PuertoRico', 'UnitedStates']:
     single_two = [cntry]
     single_three = [cntry]
     
@@ -14,7 +14,7 @@ for cntry in ['Canada', 'Panama', 'PuertoRico', 'UnitedStates']:
     df['female'] = (df['SEX'] == 'Female').astype(float)
     df.drop('SEX', axis=1, inplace=True)
     
-    dummies = pd.get_dummies(df[['MARST', 'NATIVITY', 'EDATTAIN', 'EMPSTAT', 'OCCISCO', 'INDGEN']], drop_first=True).astype(np.int8)
+    dummies = pd.get_dummies(df[['MARST', 'NATIVITY', 'EDATTAIN', 'EMPSTAT']], drop_first=True).astype(np.int8)
     df = pd.concat([df[['INCTOT']], dummies, df[['female', 'AGE', 'constant']]], axis=1)
     
     male = df[df['female']==0].reset_index(drop=True).drop('female', axis=1)
@@ -68,5 +68,5 @@ for cntry in ['Canada', 'Panama', 'PuertoRico', 'UnitedStates']:
 two = pd.DataFrame(two_rows, columns=['Country', 'Group 1', 'Group 2', 'Gap', 'Explained', 'Unexplained'])
 three = pd.DataFrame(three_rows, columns=['Country', 'Group 1', 'Group 2', 'Gap', 'Endowments', 'Coefficients', 'Interaction'])
 
-two.to_csv('two_fold.csv', index=False)
-three.to_csv('three_fold.csv', index=False)
+two.to_csv('two_fold_no_industry.csv', index=False)
+three.to_csv('three_fold_no_industry.csv', index=False)
